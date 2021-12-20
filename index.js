@@ -11,15 +11,15 @@ app.use(bodyParser.json())
 const PORT = process.env.PORT || 3000;
 
 app.listen(PORT, () => {
-    console.log("Running on port", PORT);
+    console.log("Running on port http://localhost:",PORT,"/sendmail");
 });
 
 
 app.post("/sendmail", (req, res) => {
 
-    const { to, emailBody } = req.body;
+    const { to, email_body } = req.body;
 
-    console.log(to,  emailBody);
+    console.log(to,  email_body);
 
     nodemailer.createTestAccount((err, account) => {
         //if error occurs in creating account
@@ -44,8 +44,7 @@ app.post("/sendmail", (req, res) => {
         const mailData = {
             from: 'foo@example.com',
             to: to,
-
-            text: emailBody
+            text: email_body
         };
         transporter.sendMail(mailData, (error, info) => {
             if (error) {
